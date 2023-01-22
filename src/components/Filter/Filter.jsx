@@ -1,12 +1,12 @@
 import css from './Filter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFilter} from '../../redux/filterSlice';
+import { addFilter } from '../../redux/filterSlice';
 import { getFilter } from '../../redux/selectors';
 
 const Filter = () => {
   const dispatch = useDispatch();
   const { input } = useSelector(getFilter);
-
+  
   const handleChange = e => {
     e.preventDefault();
     const name = e.target.value;
@@ -21,7 +21,7 @@ const Filter = () => {
         type="text"
         autoComplete="off"
         onChange={handleChange}
-        name="filter"
+        name="name"
         value={input}
       />
     </label>

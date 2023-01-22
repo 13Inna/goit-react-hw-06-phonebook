@@ -11,8 +11,8 @@ const ContactList = () => {
   if (!contacts) {
     return null;
   }
-  const visibleContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(input.toLowerCase())
+  const visibleContacts = contacts.value.filter(contact =>
+    contact.name.includes(input.toLowerCase())
   );
 
   return (
