@@ -1,34 +1,46 @@
-import PropTypes from 'prop-types';
 import css from './ContactList.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getContacts, getFilter } from '../../redux/selectors';
-import { Contact } from '../Contact/Contact';
+import { deleteContact } from '../../redux/contactsSlice';
 
-const ContactList = () => {
+export function ContactList() {
   const contacts = useSelector(getContacts);
-  const { input } = useSelector(getFilter);
+  const filterValue = useSelector(getFilter);
 
-  if (!contacts) {
-    return null;
-  }
-  const visibleContacts = contacts.value.filter(contact =>
-    contact.name.includes(input.toLowerCase())
-  );
+  const dispatch = useDispatch();
+  
+  const onDeleteContact = evt => {
+    dispatch(deleteContact(evt.target.id));
+    alert(`This contact is delited from your phonebook!`);
+};
+
+
+  const getVisibilityContacts = () => {
+    if (!filterValue || filterValue === '') {
+      return contacts;
+    }
+
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filterValue)
+    );
+  };
+
+  const visibilityContacts = getVisibilityContacts();
 
   return (
     <ul className={css.list}>
-      {visibleContacts.map(contact => (
+      {visibilityContacts.map(contact => (
         <li className={css.item} key={contact.id}>
-          <Contact contact={contact} />
+            {contact.name}: {contact.number}
+            <button className={css.btn}
+              type="button" id={contact.id} onClick={onDeleteContact}>
+                Delete
+            </button> 
         </li>
       ))}
     </ul>
  );
 };
 
-ContactList.propTypes = {
-  contacts: PropTypes.object,
-  input: PropTypes.string,
-};
 
 export default ContactList;

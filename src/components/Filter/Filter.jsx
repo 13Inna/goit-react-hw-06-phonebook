@@ -1,16 +1,14 @@
 import css from './Filter.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { addFilter } from '../../redux/filterSlice';
+import { useDispatch, useSelector} from 'react-redux';
+import { setFilterContacts } from '../../redux/filterSlice';
 import { getFilter } from '../../redux/selectors';
 
-const Filter = () => {
+export function Filter(){
   const dispatch = useDispatch();
-  const { input } = useSelector(getFilter);
+  const filterValue = useSelector(getFilter);
   
-  const handleChange = e => {
-    e.preventDefault();
-    const name = e.target.value;
-    dispatch(addFilter(name));
+  const handleChange = evt  => {
+   dispatch(setFilterContacts(evt.target.value));
   };
 
   return (
@@ -22,7 +20,7 @@ const Filter = () => {
         autoComplete="off"
         onChange={handleChange}
         name="name"
-        value={input}
+        value={filterValue}
       />
     </label>
   );
