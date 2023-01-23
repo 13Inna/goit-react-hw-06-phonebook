@@ -21,7 +21,7 @@ export function ContactList() {
     }
 
     return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filterValue)
+      contact.name.toLowerCase().includes(filterValue.toLowerCase())
     );
   };
 
