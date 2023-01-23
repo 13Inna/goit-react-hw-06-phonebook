@@ -14,7 +14,7 @@ const ContactForm = () => {
     const name = form.elements.name.value;
     const number = form.elements.number.value;
     form.reset();
-    if (contacts.value.find(contact => contact.name === name)) {
+    if (contacts.value.find(contact => contact.name.toLowerCase() === name.toLowerCase())) {
       alert(`${name} is already in contacts`);
       return false;
     }
